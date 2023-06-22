@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_input_data.c                                   :+:      :+:    :+:   */
+/*   get_arguments.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 12:43:45 by bena              #+#    #+#             */
-/*   Updated: 2023/06/22 15:43:39 by bena             ###   ########.fr       */
+/*   Updated: 2023/06/22 17:01:49 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int			ga_does_input_error_exist(t_input *memory);
+int			ga_does_input_error_exist(char *str);
 int			ga_is_this_space(int c);
 int			ga_isdigit(int c);
 int			ga_strlen(const char *s);
 int			ga_get_array_from_input(int *array, int number_of_args, char *ptr);
+int			ga_does_any_overflow_occur(const char *ptr);
 static int	does_empty_arg_exist(int ac, char **av);
 static char	*get_linked_input_string(int ac, char **av);
 static int	get_number_of_parameters(const char *str);
@@ -27,6 +28,8 @@ int	get_arguments(int *output_array, int output_array_size, int ac, char **av)
 	char	*linked_string;
 	int		number_of_args;
 
+	if (ac == 1)
+		return (0);
 	if (output_array == NULL || output_array_size <= 0)
 		return (-1);
 	if (does_empty_arg_exist(ac, av))
@@ -35,12 +38,14 @@ int	get_arguments(int *output_array, int output_array_size, int ac, char **av)
 	if (linked_string == NULL)
 		return (-3);
 	number_of_args = get_number_of_parameters(linked_string);
-	if (ga_does_input_error_exist(linked_string, number_of_args))
-		return (return_error(-4, linked_string);
+	if (ga_does_input_error_exist(linked_string))
+		return (return_error(-2, linked_string));
 	if (number_of_args > output_array_size)
-		return (return_error(-5, linked_string);
-	if (ga_get_array_from_input(output_array, number_of_args) != 0)
-		return (return_error(-6, linked_string));
+		return (return_error(-4, linked_string));
+	if (ga_does_any_overflow_occur(linked_string))
+		return (return_error(-5, linked_string));
+	if (ga_get_array_from_input(output_array, number_of_args, linked_string))
+		return (return_error(-5, linked_string));
 	free(linked_string);
 	return (number_of_args);
 }

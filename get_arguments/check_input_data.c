@@ -6,27 +6,23 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:10:42 by bena              #+#    #+#             */
-/*   Updated: 2023/06/22 15:43:29 by bena             ###   ########.fr       */
+/*   Updated: 2023/06/22 17:01:50 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int			ga_is_this_wrong_character(int c);
 int			ga_is_this_space(int c);
 int			ga_is_this_sign(int c);
+int			ga_isdigit(int c);
 static int	is_there_wrong_character(const char *ptr);
 static int	is_there_bad_position_of_sign(const char *ptr);
 static int	check_the_bad_sign(const char **ptr);
-static int	does_any_overflow_occur(const char *ptr);
 
-int	ga_does_input_error_exist(char *str, int arr_size)
+int	ga_does_input_error_exist(char *str)
 {
-	if (arr_size <= 0)
-		return (1);
 	if (is_there_wrong_character(str))
 		return (1);
 	if (is_there_bad_position_of_sign(str))
-		return (1);
-	if (does_any_overflow_occur(str))
 		return (1);
 	return (0);
 }
@@ -74,7 +70,7 @@ static int	check_the_bad_sign(const char **ptr)
 	return (0);
 }
 
-static int	does_any_overflow_occur(const char *ptr)
+int	ga_does_any_overflow_occur(const char *ptr)
 {
 	int			count_digits;
 
