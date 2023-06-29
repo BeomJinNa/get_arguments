@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 15:58:37 by bena              #+#    #+#             */
-/*   Updated: 2023/06/23 19:59:05 by bena             ###   ########.fr       */
+/*   Updated: 2023/06/29 20:52:50 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,5 @@ int	ga_parsing_error(int ga_errno)
 	write(2, "Error: ", 7);
 	write(2, str, ptr - str);
 	write(2, "\n", 1);
-	return (-1);
+	return (1);
 }
